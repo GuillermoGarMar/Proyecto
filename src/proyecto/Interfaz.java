@@ -6,12 +6,13 @@
 package proyecto;
 
 import java.awt.Color;
+import java.awt.Image;
 import java.util.Random;
 import javax.swing.JTextField;
 
 /**
  *
- * @author Guille
+ * @author Guille y Javi
  */
 public class Interfaz extends javax.swing.JFrame {
 
@@ -169,7 +170,9 @@ public class Interfaz extends javax.swing.JFrame {
             .addGap(0, 27, Short.MAX_VALUE)
         );
 
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Vidas");
+        jLabel3.setToolTipText("");
 
         jTextField2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -292,7 +295,7 @@ public class Interfaz extends javax.swing.JFrame {
                                 .addGap(13, 13, 13))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                                .addGap(18, 18, 18)))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE))))
@@ -312,12 +315,11 @@ public class Interfaz extends javax.swing.JFrame {
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(95, 95, 95)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addContainerGap(48, Short.MAX_VALUE))))
@@ -415,6 +417,29 @@ public class Interfaz extends javax.swing.JFrame {
         Random rdn3 = new Random();
         d3 = rdn3.nextInt(24)+1;
         jTextField4.setText(String.valueOf(d3));
+        
+        //los dados
+        Core nc = new Core();
+        /*
+        -nc.dado"x" es el numero random
+        -.queImg segun el numero escoge la imagen del directorio
+        */
+        Imagen im1 = new Imagen(jPanel1);
+        im1.queImg(nc.dado1());
+        jPanel1.add(im1).repaint();
+        
+        Imagen im2 = new Imagen(jPanel2);
+        im2.queImg(nc.dado2());
+        jPanel2.add(im2).repaint();
+        
+        Imagen im3 = new Imagen(jPanel3);
+        im3.queImg(nc.dado3());
+        jPanel3.add(im3).repaint();
+        
+        Imagen im4 = new Imagen(jPanel4);
+        im4.queImg(nc.dado4());
+        jPanel4.add(im4).repaint();
+        
         
     }//GEN-LAST:event_jButton2ActionPerformed
 

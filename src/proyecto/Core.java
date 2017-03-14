@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  *
- * @author Guille
+ * @author Guille y Javi
  */
 public class Core {
     private int d1,d2,d3,d4;
@@ -18,10 +18,20 @@ public class Core {
     Random rdn3= new Random();
     Random rdn4 = new Random();
     
-    public void rdn(){
+    public int dado1(){
         d1 = rdn1.nextInt(6)+1;
+        return d1;
+    }
+    public int dado2(){;
         d2 = rdn2.nextInt(6)+1;
+        return d2;
+    }
+    public int dado3(){
         d3 = rdn3.nextInt(6)+1;
+        return d3;
+    }
+    public int dado4(){
         d4 = rdn4.nextInt(6)+1;
+        return d4;
     }
 }
