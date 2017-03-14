@@ -18,7 +18,7 @@ public class Proyecto {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-           Interfaz z= new Interfaz();
+            Interfaz z= new Interfaz();
             z.setVisible(true);
     }
     
