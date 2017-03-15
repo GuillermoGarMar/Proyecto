@@ -7,7 +7,10 @@ package proyecto;
 
 import java.awt.Color;
 import java.awt.Image;
+import java.io.File;
 import java.util.Random;
+import java.util.Scanner;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 /**
@@ -15,20 +18,20 @@ import javax.swing.JTextField;
  * @author Guille y Javi
  */
 public class Interfaz extends javax.swing.JFrame {
-            int puntos;
-            int vidas = 3; 
+
+    int puntos;
+    int vidas = 3;
+
     /**
      * Creates new form Interfaz
      */
     public Interfaz() {
         initComponents();
         jPanel5.setBackground(Color.green);
-       jPanel6.setBackground(Color.green);
-       jPanel7.setBackground(Color.green);
-        
+        jPanel6.setBackground(Color.green);
+        jPanel7.setBackground(Color.green);
+
     }
-    
-        
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -81,6 +84,11 @@ public class Interfaz extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButton1.setText("Clasificacion");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         jButton2.setText("JUGAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +142,12 @@ public class Interfaz extends javax.swing.JFrame {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Puntos");
 
@@ -332,15 +346,8 @@ public class Interfaz extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(27, 27, 27)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jTextField1))
-                        .addGap(82, 82, 82))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -350,14 +357,21 @@ public class Interfaz extends javax.swing.JFrame {
                                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(95, 95, 95)
-                                .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                                 .addGap(18, 18, 18)
                                 .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(21, Short.MAX_VALUE))))
+                        .addContainerGap(21, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -366,15 +380,13 @@ public class Interfaz extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -383,10 +395,12 @@ public class Interfaz extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
                         .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel3)
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(12, 12, 12)
@@ -439,113 +453,131 @@ public class Interfaz extends javax.swing.JFrame {
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
         // TODO add your handling code here:
         JTextField Noro = new JTextField(2);
-        int o=0;
-        o=Integer.parseInt(Noro.getText());
+        int o = 0;
+        o = Integer.parseInt(Noro.getText());
     }//GEN-LAST:event_jTextField2ActionPerformed
 
     private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
         // TODO add your handling code here:
         JTextField Nplata = new JTextField(2);
-        int p=0;
-        p=Integer.parseInt(Nplata.getText());
+        int p = 0;
+        p = Integer.parseInt(Nplata.getText());
     }//GEN-LAST:event_jTextField3ActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
         JTextField Nbronze = new JTextField(2);
-        int b=0;
-        b=Integer.parseInt(Nbronze.getText());
+        int b = 0;
+        b = Integer.parseInt(Nbronze.getText());
     }//GEN-LAST:event_jTextField4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         int d1;
         Random rdn1 = new Random();
-        d1 = rdn1.nextInt(24)+1;
+        d1 = rdn1.nextInt(24) + 1;
         jTextField2.setText(String.valueOf(d1));
         int d2;
         Random rdn2 = new Random();
-        d2 = rdn2.nextInt(24)+1;
+        d2 = rdn2.nextInt(24) + 1;
         jTextField3.setText(String.valueOf(d2));
         int d3;
         Random rdn3 = new Random();
-        d3 = rdn3.nextInt(24)+1;
+        d3 = rdn3.nextInt(24) + 1;
         jTextField4.setText(String.valueOf(d3));
-        
+
         //los dados
         Core nc = new Core();
         /*
         -nc.dado"x" es el numero random
         -.queImg segun el numero escoge la imagen del directorio
-        */
+         */
         int aa = nc.dado1();
         Imagen im1 = new Imagen(jPanel1);
         im1.queImg(aa);
         jPanel1.add(im1).repaint();
         jTextField5.setText(String.valueOf(aa));
-        
+
         int bb = nc.dado2();
         Imagen im2 = new Imagen(jPanel2);
         im2.queImg(bb);
         jPanel2.add(im2).repaint();
         jTextField6.setText(String.valueOf(bb));
-        
-        
+
         int cc = nc.dado3();
         Imagen im3 = new Imagen(jPanel3);
         im3.queImg(cc);
         jPanel3.add(im3).repaint();
         jTextField8.setText(String.valueOf(cc));
-        
-        
+
         int dd = nc.dado4();
         Imagen im4 = new Imagen(jPanel4);
         im4.queImg(dd);
         jPanel4.add(im4).repaint();
         jTextField7.setText(String.valueOf(dd));
-        
+
         int resultado = aa + bb + cc + dd;
         jTextField9.setText(String.valueOf(resultado));
-        
-        
-        if (d1==resultado){
-            puntos = puntos+500;
+
+        if (d1 == resultado) {
+            puntos = puntos + 500;
             jTextField1.setText(String.valueOf(puntos));
-        }
-        else if (d2==resultado){
-            puntos = puntos+300;
+        } else if (d2 == resultado) {
+            puntos = puntos + 300;
             jTextField1.setText(String.valueOf(puntos));
-        }
-        else if (d3==resultado){
-            puntos = puntos+200;
+        } else if (d3 == resultado) {
+            puntos = puntos + 200;
             jTextField1.setText(String.valueOf(puntos));
-        }
-        else{
+        } else {
             vidas = vidas - 1;
         }
-        if (vidas==2){
-        jPanel7.setBackground(Color.red);
-    }
-        if (vidas==1){
-        jPanel5.setBackground(Color.red);
-    }
-        if (vidas==0){
-        jPanel6.setBackground(Color.red);
-    }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        if (vidas == 2) {
+            jPanel7.setBackground(Color.red);
+        }
+        if (vidas == 1) {
+            jPanel5.setBackground(Color.red);
+        }
+        if (vidas == 0) {
+            jPanel6.setBackground(Color.red);
+            Result gui = new Result();
+            Result.jTextField2.setText(String.valueOf(puntos));
+            gui.setVisible(true);
+        }
+
     }//GEN-LAST:event_jButton2ActionPerformed
+    public String getPts() {
+        return String.valueOf(puntos);
+    }
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        File fichero = new File("C:\\Users\\Guille\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt");
+        String linea = null;
+        Scanner sc = null;
+        try {
+            System.out.println("... Leemos el contenido del fichero ...");
+            sc = new Scanner(fichero);
+            while (sc.hasNextLine()) {
+                linea = sc.nextLine();
+                System.out.println(linea);
+            }
+
+        } catch (Exception ex) {
+            System.out.println("Mensaje(seguramente este vacio): " + ex.getMessage());
+        } finally {
+            try {
+                if (sc != null) {
+                    sc.close();
+                }
+            } catch (Exception ex2) {
+                System.out.println("Mensaje 2: " + ex2.getMessage());
+            }
+        }
+        JOptionPane.showMessageDialog(null, linea);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -607,7 +639,7 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
-    private javax.swing.JTextField jTextField1;
+    public static javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -622,5 +654,5 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem saveAsMenuItem;
     private javax.swing.JMenuItem saveMenuItem;
     // End of variables declaration//GEN-END:variables
-    
+
 }
