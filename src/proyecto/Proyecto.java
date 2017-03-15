@@ -9,7 +9,7 @@ import java.util.Random;
 
 /**
  *
- * @author Guille
+ * @author Guille Y Javi
  */
 public class Proyecto {
 
@@ -18,8 +18,8 @@ public class Proyecto {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-    Interfaz z = new Interfaz();
-    z.setVisible(true);
+            Interfaz z= new Interfaz();
+            z.setVisible(true);
     }
     
 }
