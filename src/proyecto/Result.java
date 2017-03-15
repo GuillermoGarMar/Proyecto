@@ -7,6 +7,7 @@ package proyecto;
 
 import java.io.File;
 import java.util.Scanner;
+
 /**
  *
  * @author Guille
@@ -135,9 +136,28 @@ public class Result extends javax.swing.JFrame {
                 System.out.println("Mensaje 2: " + ex2.getMessage());
             }
         }
-        
+
         //escribir
-        
+        String[] lineas = {"Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "..."};
+
+        /**
+         * FORMA 1 DE ESCRITURA *
+         */
+        FileWriter fichero = null;
+        try {
+
+            fichero = new FileWriter("fichero_escritura.txt");
+
+            // Escribimos linea a linea en el fichero
+            for (String linea : lineas) {
+                fichero.write(linea + "\n");
+            }
+
+            fichero.close();
+
+        } catch (Exception ex) {
+            System.out.println("Mensaje de la excepción: " + ex.getMessage());
+        }
         x.setVisible(false);
         Proyecto.main(null);
     }//GEN-LAST:event_jButton1ActionPerformed
