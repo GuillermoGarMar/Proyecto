@@ -15,7 +15,7 @@ public class Core {
     private int d1,d2,d3,d4;
     Random rdn1 = new Random();
     Random rdn2 = new Random();
-    Random rdn3= new Random();
+    Random rdn3 = new Random();
     Random rdn4 = new Random();
     
     public void rdn(){
@@ -24,4 +24,6 @@ public class Core {
         d3 = rdn3.nextInt(6)+1;
         d4 = rdn4.nextInt(6)+1;
     }
+    
+    
 }
