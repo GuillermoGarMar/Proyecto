@@ -6,6 +6,8 @@
 package proyecto;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
 /**
@@ -113,9 +115,42 @@ public class Result extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
+        
+        
+        String jugador = jTextField1.getText();
+        int puntos = Integer.parseInt(jTextField2.getText());
+        
+       
+        //Escribir
+        String nl = System.getProperty("line.separator");
+        FileWriter fichero2 = null;
+        PrintWriter pw = null;
+        try
+        {
+            fichero2 = new FileWriter("C:\\Users\\Javi\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt",true);
+            pw = new PrintWriter(fichero2);
+
+            for (int i = 0; i <1; i++)
+                pw.println("Jugador:_" + jugador + "_Puntos:_" + puntos + nl);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para 
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero2)
+              fichero2.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+        
+         
+        
+        
         //leer
         String linea = null;
-        File fichero = new File("C:\\Users\\Guille\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt");
+        File fichero = new File("C:\\Users\\Javi\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt");
         Scanner sc = null;
         try {
             System.out.println("... Leemos el contenido del fichero ...");
@@ -137,29 +172,12 @@ public class Result extends javax.swing.JFrame {
             }
         }
 
-        //escribir
-        String[] lineas = {"Uno", "Dos", "Tres", "Cuatro", "Cinco", "Seis", "Siete", "..."};
-
-        /**
-         * FORMA 1 DE ESCRITURA *
-         */
-        FileWriter fichero = null;
-        try {
-
-            fichero = new FileWriter("fichero_escritura.txt");
-
-            // Escribimos linea a linea en el fichero
-            for (String linea : lineas) {
-                fichero.write(linea + "\n");
-            }
-
-            fichero.close();
-
-        } catch (Exception ex) {
-            System.out.println("Mensaje de la excepción: " + ex.getMessage());
-        }
-        x.setVisible(false);
-        Proyecto.main(null);
+        
+      
+       
+       
+       
+            
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
