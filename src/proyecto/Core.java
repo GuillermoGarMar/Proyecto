@@ -18,6 +18,7 @@ public class Core {
     Random rdn3 = new Random();
     Random rdn4 = new Random();
     
+    
     public int dado1(){
         d1 = rdn1.nextInt(6)+1;
         return d1;
