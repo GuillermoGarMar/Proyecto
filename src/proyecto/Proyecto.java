@@ -20,6 +20,7 @@ public class Proyecto {
         // TODO code application logic here
             Interfaz z= new Interfaz();
             z.setVisible(true);
+            
     }
     
 }
