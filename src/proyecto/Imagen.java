@@ -22,6 +22,7 @@ public class Imagen extends javax.swing.JPanel {
         this.y = jPanel1.getHeight();
         this.setSize(x,y);
     }
+    
     public void queImg(int n){
         if (n==1){
             c=("/Img/1.png");
