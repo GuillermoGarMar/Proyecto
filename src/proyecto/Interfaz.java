@@ -500,7 +500,7 @@ public class Interfaz extends javax.swing.JFrame {
              
             jPanel6.setBackground(Color.red);
             Result gui = new Result();
-            Result.jTextField2.setText(String.valueOf(puntos));
+            Result.Puntostxt.setText(String.valueOf(puntos));
             gui.setVisible(true);
             this.setVisible(false);
             
