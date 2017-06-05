@@ -34,17 +34,17 @@ public class Result extends javax.swing.JFrame {
     public Result() throws SQLException {
         initComponents();
         b.crearTb(cn);
-        mostrardatos();
+        mostrar();
     }
 
-    void mostrardatos() {
+    void mostrar() {
         DefaultTableModel modelo = new DefaultTableModel();
         modelo.addColumn("NOMBRE");
         modelo.addColumn("PUNTOS");
 
         JugadoresTB.setModel(modelo);
         String sql = "";
-        sql = "SELECT * FROM ScoreTB";
+        sql = "SELECT * FROM ScoreTB ORDER BY score DESC limit 10";
 
         String[] datos = new String[30];
         try {
@@ -53,7 +53,6 @@ public class Result extends javax.swing.JFrame {
             while (rs.next()) {
                 datos[0] = rs.getString(1);
                 datos[1] = rs.getString(2);
-                datos[2] = rs.getString(3);
                 modelo.addRow(datos);
             }
             JugadoresTB.setModel(modelo);
@@ -80,6 +79,7 @@ public class Result extends javax.swing.JFrame {
         NewGamebtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         JugadoresTB = new javax.swing.JTable();
+        Addbtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(346, 516));
@@ -136,6 +136,13 @@ public class Result extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(JugadoresTB);
 
+        Addbtn.setText("Añadir");
+        Addbtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddbtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -158,7 +165,9 @@ public class Result extends javax.swing.JFrame {
                                 .addGap(8, 8, 8)
                                 .addComponent(Nombrestxt, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(NewGamebtn)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addComponent(Addbtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(NewGamebtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGap(95, 95, 95)
                                 .addComponent(Outbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(37, Short.MAX_VALUE))
@@ -179,10 +188,12 @@ public class Result extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(Nombrestxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
+                .addComponent(Addbtn)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(NewGamebtn)
                     .addComponent(Outbtn))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(22, 22, 22))
         );
 
         pack();
@@ -192,7 +203,7 @@ public class Result extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         System.exit(0);
-
+        b.close(cn);
 
     }//GEN-LAST:event_OutbtnActionPerformed
 
@@ -201,12 +212,20 @@ public class Result extends javax.swing.JFrame {
     }//GEN-LAST:event_PuntostxtActionPerformed
 
     private void NewGamebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewGamebtnActionPerformed
-
-
         this.setVisible(false);
         new Interfaz().setVisible(true);
+        b.close(cn);
         // TODO add your handling code here:
     }//GEN-LAST:event_NewGamebtnActionPerformed
+
+    private void AddbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddbtnActionPerformed
+        try {
+            // TODO add your handling code here:
+            b.insertarJugador(Nombrestxt.getText(), Puntostxt.getText(), cn);
+        } catch (SQLException ex) {
+            Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_AddbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -248,6 +267,7 @@ public class Result extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Addbtn;
     private javax.swing.JTable JugadoresTB;
     private javax.swing.JButton NewGamebtn;
     private javax.swing.JTextField Nombrestxt;

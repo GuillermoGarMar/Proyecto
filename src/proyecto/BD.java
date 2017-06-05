@@ -18,16 +18,16 @@ import javax.swing.JOptionPane;
  * @author guille
  */
 public class BD {
-    private String url = "jdbc:sqlite:BD1.db";
+    private String url = "jdbc:sqlite:Jugadores.db";
     private Connection conn = null;
-    public static String db = "BD1.db";
+    public static String db = "Jugadores.db";
 
     public BD() {
     }
 
-    public void createnewBD(String fileName) {
+    public void createnewBD() {
 
-        url = "jdbc:sqlite:" + fileName;
+        url = "jdbc:sqlite:" + db;
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -44,7 +44,7 @@ public class BD {
     public Connection connect() {
         try {
             Class.forName("org.sqlite.JDBC");
-            Connection con = DriverManager.getConnection("jdbc:sqlite:BD1.db");
+            Connection con = DriverManager.getConnection("jdbc:sqlite:Jugadores.db");
             JOptionPane.showMessageDialog(null, "La conexión está establecida");
             return con;
         } catch (Exception e) {
@@ -56,32 +56,23 @@ public class BD {
     public void crearTb(Connection c) throws SQLException {
         Statement st = c.createStatement();
         try {
-            st.execute("CREATE TABLE ScoreTB (name String primary key, score String);");
+            st.execute("CREATE TABLE ScoreTB (name String, score String);");
             System.out.println("Table created");
         } catch (SQLException ex) {
-            System.err.println("Tabla ya creada");
         }
     }
 
-    public void insertarJugador(String x, String y, Connection cn) throws SQLException {
+    public void insertarJugador(String n, String p, Connection cn) throws SQLException {
         try {
-            PreparedStatement st = cn.prepareStatement("insert into ScoreTB (name,score) values (?,?,?)");
-            st.setString(2, x);
-            st.setString(3, y);
+            PreparedStatement st = cn.prepareStatement("insert into ScoreTB (name,score) values (?,?)");
+            st.setString(1, n);
+            st.setString(2, p);
             st.execute();
         } catch (SQLException ex) {
             System.err.println("Registro no insertado");
         }
     }
     
-
-
-    public void Borrar(String id, Connection cn) throws SQLException {
-        String sql = "DELETE FROM ScoreTB WHERE id = ?";
-        PreparedStatement pstmt = cn.prepareStatement(sql);
-        pstmt.setString(1, id);
-        pstmt.executeUpdate();
-    }
     
     public void close(Connection cn) {
         try {
