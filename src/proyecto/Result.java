@@ -9,7 +9,14 @@ import java.awt.Color;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -18,12 +25,41 @@ import java.util.Scanner;
 public class Result extends javax.swing.JFrame {
 
     Interfaz x = new Interfaz();
+    BD b = new BD();
+    Connection cn = b.connect();
 
     /**
      * Creates new form Result
      */
-    public Result() {
+    public Result() throws SQLException {
         initComponents();
+        b.crearTb(cn);
+        mostrardatos();
+    }
+
+    void mostrardatos() {
+        DefaultTableModel modelo = new DefaultTableModel();
+        modelo.addColumn("NOMBRE");
+        modelo.addColumn("PUNTOS");
+
+        JugadoresTB.setModel(modelo);
+        String sql = "";
+        sql = "SELECT * FROM ScoreTB";
+
+        String[] datos = new String[30];
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            while (rs.next()) {
+                datos[0] = rs.getString(1);
+                datos[1] = rs.getString(2);
+                datos[2] = rs.getString(3);
+                modelo.addRow(datos);
+            }
+            JugadoresTB.setModel(modelo);
+        } catch (SQLException ex) {
+            Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -118,13 +154,13 @@ public class Result extends javax.swing.JFrame {
                                 .addComponent(Puntostxt, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 272, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addGap(8, 8, 8)
                                 .addComponent(Nombrestxt, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(NewGamebtn)
-                                .addGap(108, 108, 108)
-                                .addComponent(Outbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGap(95, 95, 95)
+                                .addComponent(Outbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(37, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -154,11 +190,10 @@ public class Result extends javax.swing.JFrame {
 
     private void OutbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_OutbtnActionPerformed
         // TODO add your handling code here:
-        
-        
+
         System.exit(0);
-   
-            
+
+
     }//GEN-LAST:event_OutbtnActionPerformed
 
     private void PuntostxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PuntostxtActionPerformed
@@ -168,64 +203,8 @@ public class Result extends javax.swing.JFrame {
     private void NewGamebtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NewGamebtnActionPerformed
 
 
-String jugador = Nombrestxt.getText();
-
-        int puntos = Integer.parseInt(Puntostxt.getText());
-        
-       
-        //Escribir
-        
-        FileWriter fichero2 = null;
-        PrintWriter pw = null;
-        try
-        {
-            fichero2 = new FileWriter("C:\\Users\\Javi\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt",true);
-            pw = new PrintWriter(fichero2);
-
-            for (int i = 0; i <1; i++)
-                pw.println("Jugador: " + jugador + "                  Puntos: " + puntos);
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-           try {
-           // Nuevamente aprovechamos el finally para 
-           // asegurarnos que se cierra el fichero.
-           if (null != fichero2)
-              fichero2.close();
-           } catch (Exception e2) {
-              e2.printStackTrace();
-           }
-        }
-        
-         
-        
-        
-        //leer
-        String linea = null;
-        File fichero = new File("C:\\Users\\Javi\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt");
-        Scanner sc = null;
-        try {
-            System.out.println("... Leemos el contenido del fichero ...");
-            sc = new Scanner(fichero);
-            while (sc.hasNextLine()) {
-                linea = sc.nextLine();
-                System.out.println(linea);
-            }
-
-        } catch (Exception ex) {
-            System.out.println("Mensaje(seguramente este vacio): " + ex.getMessage());
-        } finally {
-            try {
-                if (sc != null) {
-                    sc.close();
-                }
-            } catch (Exception ex2) {
-                System.out.println("Mensaje 2: " + ex2.getMessage());
-            }
-        }
-        
-                this.setVisible(false);
-                new Interfaz().setVisible(true);
+        this.setVisible(false);
+        new Interfaz().setVisible(true);
         // TODO add your handling code here:
     }//GEN-LAST:event_NewGamebtnActionPerformed
 
@@ -259,7 +238,11 @@ String jugador = Nombrestxt.getText();
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Result().setVisible(true);
+                try {
+                    new Result().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Result.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }

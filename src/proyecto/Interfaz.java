@@ -8,10 +8,13 @@ package proyecto;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
@@ -498,11 +501,17 @@ public class Interfaz extends javax.swing.JFrame {
         }
         if (vidas == 0) {
              
-            jPanel6.setBackground(Color.red);
-            Result gui = new Result();
-            Result.Puntostxt.setText(String.valueOf(puntos));
-            gui.setVisible(true);
-            this.setVisible(false);
+            try {
+                jPanel6.setBackground(Color.red);
+                
+                Result gui = new Result();
+                
+                Result.Puntostxt.setText(String.valueOf(puntos));
+                gui.setVisible(true);
+                this.setVisible(false);
+            } catch (SQLException ex) {
+                Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
+            }
             
         }
 

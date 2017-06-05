@@ -56,39 +56,25 @@ public class BD {
     public void crearTb(Connection c) throws SQLException {
         Statement st = c.createStatement();
         try {
-            st.execute("CREATE TABLE ScoreTB (id String primary key, name String, score String);");
+            st.execute("CREATE TABLE ScoreTB (name String primary key, score String);");
             System.out.println("Table created");
-            //st.execute("DROP TABLE ScoreTB;");
-            //System.out.println("Table deleted");
         } catch (SQLException ex) {
             System.err.println("Tabla ya creada");
         }
     }
 
-    public void insertarJugador(String x, String y, String z, Connection cn) throws SQLException {
+    public void insertarJugador(String x, String y, Connection cn) throws SQLException {
         try {
-            PreparedStatement st = cn.prepareStatement("insert into ScoreTB (id,name,score) values (?,?,?)");
-            st.setString(1, z);
+            PreparedStatement st = cn.prepareStatement("insert into ScoreTB (name,score) values (?,?,?)");
             st.setString(2, x);
             st.setString(3, y);
             st.execute();
-            System.out.println("Insertado correctamente");
         } catch (SQLException ex) {
             System.err.println("Registro no insertado");
         }
     }
+    
 
-    public void Actualizar(String nombre, String puntos, String id, Connection cn) throws SQLException {
-        String sql = "UPDATE ScoreTB SET name = ? , "
-                + "score = ? "
-                + "WHERE id = ?";
-
-        PreparedStatement pstmt = cn.prepareStatement(sql);
-            pstmt.setString(1, nombre);
-            pstmt.setString(2, puntos);
-            pstmt.setString(3, id);
-        pstmt.executeUpdate();
-    }
 
     public void Borrar(String id, Connection cn) throws SQLException {
         String sql = "DELETE FROM ScoreTB WHERE id = ?";
