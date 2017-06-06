@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
  * @author guille
  */
 public class BD {
+
     private String url = "jdbc:sqlite:Jugadores.db";
     private Connection conn = null;
     public static String db = "Jugadores.db";
@@ -45,7 +46,6 @@ public class BD {
         try {
             Class.forName("org.sqlite.JDBC");
             Connection con = DriverManager.getConnection("jdbc:sqlite:Jugadores.db");
-            JOptionPane.showMessageDialog(null, "La conexión está establecida");
             return con;
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, e);
@@ -73,7 +73,16 @@ public class BD {
         }
     }
     
-    
+    public void limpiar(Connection cn) throws SQLException{
+        Statement st = cn.createStatement();
+        Statement st2 = cn.createStatement();
+        try {
+            st.execute("Drop TABLE ScoreTB;");
+            st2.execute("CREATE TABLE ScoreTB (name String, score String);");
+            System.out.println("Table created");
+        } catch (SQLException ex) {
+        }
+    }
     public void close(Connection cn) {
         try {
             cn.close();

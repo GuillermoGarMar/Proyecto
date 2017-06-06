@@ -8,7 +8,10 @@ package proyecto;
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
@@ -33,7 +36,7 @@ public class Interfaz extends javax.swing.JFrame {
      */
     public Interfaz() {
         initComponents();
-        
+
         jPanel5.setBackground(Color.green);
         jPanel6.setBackground(Color.green);
         jPanel7.setBackground(Color.green);
@@ -458,28 +461,23 @@ public class Interfaz extends javax.swing.JFrame {
         Imagen im1 = new Imagen(jPanel1);
         im1.queImg(aa);
         jPanel1.add(im1).repaint();
-        
 
         int bb = nc.dado2();
         Imagen im2 = new Imagen(jPanel2);
         im2.queImg(bb);
         jPanel2.add(im2).repaint();
-        
 
         int cc = nc.dado3();
         Imagen im3 = new Imagen(jPanel3);
         im3.queImg(cc);
         jPanel3.add(im3).repaint();
-       
 
         int dd = nc.dado4();
         Imagen im4 = new Imagen(jPanel4);
         im4.queImg(dd);
         jPanel4.add(im4).repaint();
-        
 
         int resultado = aa + bb + cc + dd;
-       
 
         if (d1 == resultado) {
             puntos = puntos + 500;
@@ -500,19 +498,19 @@ public class Interfaz extends javax.swing.JFrame {
             jPanel5.setBackground(Color.red);
         }
         if (vidas == 0) {
-             
+
             try {
                 jPanel6.setBackground(Color.red);
-                
+
                 Result gui = new Result();
-                
+
                 Result.Puntostxt.setText(String.valueOf(puntos));
                 gui.setVisible(true);
                 this.setVisible(false);
             } catch (SQLException ex) {
                 Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
 
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -526,40 +524,32 @@ public class Interfaz extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        File fichero = new File("C:\\Users\\Javi\\Documents\\NetBeansProjects\\Proyecto\\src\\Img\\Clasificacion.txt");
-        String linea = null;
-        Scanner sc = null;
-        ArrayList<String> al = new ArrayList <String>();
-        try {
-            System.out.println("... Leemos el contenido del fichero ...");
-            sc = new Scanner(fichero);
-            while (sc.hasNextLine()) {
-                
-                linea = sc.nextLine();
-                al.add(linea);
-                System.out.println(linea);
-            }
+        BD dasfa = new BD();
+        dasfa.connect();
+        Connection cn = dasfa.connect();
+        String sql = "";
+        sql = "SELECT * FROM ScoreTB limit 10";
+        String datos="";
 
-        } catch (Exception ex) {
-            System.out.println("Mensaje(seguramente este vacio): " + ex.getMessage());
-        } finally {
-            try {
-                if (sc != null) {
-                    sc.close();
-                }
-            } catch (Exception ex2) {
-                System.out.println("Mensaje 2: " + ex2.getMessage());
+        try {
+            Statement st = cn.createStatement();
+            ResultSet rs = st.executeQuery(sql);
+            for(int i=1; rs.next();i++){
+               
+                   datos= datos+rs.getString(1)+(" ")+rs.getString(2)+"\n ";
+               
+                 
+                
+               
             }
+        } catch (SQLException ex) {
+            Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-           
-        
-        
-        String nl = System.getProperty("line.separator");
-    JOptionPane.showMessageDialog(null, al.get(1) + nl + al.get(2) + nl + al.get(3));
-        
-        
-        
+
+        JOptionPane.showMessageDialog(null,datos);
+        dasfa.close(cn);
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
