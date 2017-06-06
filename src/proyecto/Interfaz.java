@@ -52,7 +52,7 @@ public class Interfaz extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        LastGbtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
@@ -88,10 +88,10 @@ public class Interfaz extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Ultimos Jugadores");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        LastGbtn.setText("Ultimos Jugadores");
+        LastGbtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                LastGbtnActionPerformed(evt);
             }
         });
 
@@ -327,7 +327,7 @@ public class Interfaz extends javax.swing.JFrame {
                         .addComponent(jPanel6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton1)
+                            .addComponent(LastGbtn)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -401,7 +401,7 @@ public class Interfaz extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(LastGbtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(51, 51, 51))))
         );
 
@@ -522,35 +522,35 @@ public class Interfaz extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void LastGbtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LastGbtnActionPerformed
         // TODO add your handling code here:
         BD dasfa = new BD();
         dasfa.connect();
         Connection cn = dasfa.connect();
         String sql = "";
-        sql = "SELECT * FROM ScoreTB limit 10";
-        String datos="";
+        sql = "SELECT * FROM ScoreTB";
+        String datos = "";
+        int cont=0;
 
         try {
             Statement st = cn.createStatement();
             ResultSet rs = st.executeQuery(sql);
-            for(int i=1; rs.next();i++){
-               
-                   datos= datos+rs.getString(1)+(" ")+rs.getString(2)+"\n ";
-               
-                 
-                
-               
+            while (rs.next()) {
+                cont=cont+1;
+            }
+            while (rs.next()) {
+
+                datos = datos + rs.getString(1) + (" ") + rs.getString(2) + "\n ";
+
             }
         } catch (SQLException ex) {
             Logger.getLogger(Interfaz.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
-        JOptionPane.showMessageDialog(null,datos);
+        JOptionPane.showMessageDialog(null, datos);
         dasfa.close(cn);
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_LastGbtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -588,6 +588,7 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton LastGbtn;
     private javax.swing.JMenuItem aboutMenuItem;
     private javax.swing.JMenuItem contentsMenuItem;
     private javax.swing.JMenuItem copyMenuItem;
@@ -597,7 +598,6 @@ public class Interfaz extends javax.swing.JFrame {
     private javax.swing.JMenuItem exitMenuItem;
     private javax.swing.JMenu fileMenu;
     private javax.swing.JMenu helpMenu;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
